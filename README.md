@@ -32,7 +32,7 @@ To use this custom runtime, you'll also need the following `vercel.json`:
 {
   "functions": {
     "api/**/*.clj": {
-      "runtime": "vercel-babashka@0.1.0"
+      "runtime": "vercel-babashka@0.1.1"
     }
   }
 }
