@@ -1,0 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+cd "$LAMBDA_TASK_ROOT"
+
+export BABASHKA_DISABLE_PIPE_SIGNAL_HANDLER="true"
+
+./bb lambda_invoker.clj

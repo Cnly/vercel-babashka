@@ -1,0 +1,15 @@
+{
+  "public": true,
+  "functions": {
+    "api/**/*.clj": {
+      "runtime": "vercel-dev-runtime@0.0.3",
+      "memory": 512
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:p1(.+)-:p2(.+)/:path*",
+      "destination": "/api/:p1*_:p2*/:path*"
+    }
+  ]
+}
