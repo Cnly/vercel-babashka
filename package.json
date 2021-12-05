@@ -10,8 +10,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc",
-    "postbuild": "cpy '**' '!**/*.ts' ../dist --cwd=src --parents",
-    "prepublishOnly": "npm run build"
+    "postbuild": "cpy '**' '!**/*.ts' ../dist --cwd=src --parents"
   },
   "repository": {
     "type": "git",
