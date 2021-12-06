@@ -1,7 +1,7 @@
 [<img src="https://og-image.vercel.app/**vercel-babashka**.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https://github.com/babashka/babashka/raw/master/logo/icon.svg&widths=184&widths=230&heights=160&heights=230">](https://github.com/cnly/vercel-babashka)
 
 <p align="center">
-Deploy your Babashka scripts as Vercel Serverless Functions.
+Deploy your [Babashka](https://github.com/babashka/babashka) scripts as Vercel Serverless Functions.
 </p>
 
 ## Usage
