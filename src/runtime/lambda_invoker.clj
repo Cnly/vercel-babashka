@@ -8,8 +8,6 @@
   (:import [java.util Base64]
            [java.net URL URLDecoder]))
 
-(require [(symbol (System/getenv "ENTRY_NS")) :as 'entry])
-
 (defn- get-lambda-invocation-event
   "Retrieves an invocation event from the Lambda runtime API as an HTTP response.
   The HTTP response body is a JSON document containing the event data from the function trigger.
@@ -95,8 +93,20 @@
         :encoding   (when (and (bytes? body) (not jsonify)) "base64")}))
     (throw (RuntimeException. (str "The invocation event has no body: " event-data)))))
 
+(defn- get-handler-fn []
+  (if-let [entry-ns-name (System/getenv "ENTRY_NS")]
+    (let [entry-ns-sym (symbol entry-ns-name)]
+      (try
+        (require entry-ns-sym)
+        (or (ns-resolve entry-ns-sym 'handler)
+            (throw (RuntimeException. (str "No handler found defined in namespace " (ns-name entry-ns-sym)))))
+        (catch Exception e
+          (throw (RuntimeException. (str "Failed to get handler function in namespace `" entry-ns-name "`: " e))))))
+    (throw (RuntimeException. "Environment variable ENTRY_NS seems to be unset."))))
+
 (defn -main []
-  (let [lambda-api-endpoint (System/getenv "AWS_LAMBDA_RUNTIME_API")]
+  (let [lambda-api-endpoint (System/getenv "AWS_LAMBDA_RUNTIME_API")
+        handler-fn (get-handler-fn)]
     (loop [event-resp (get-lambda-invocation-event lambda-api-endpoint)]
       (let [req-id (-> event-resp :headers :lambda-runtime-aws-request-id)]
         (when (or (:error event-resp)
@@ -106,7 +116,7 @@
             (throw (RuntimeException. (str err-msg ": " (pr-str (event-resp)))))))
         (try
           (->> (:body event-resp)
-               (event-data->response entry/handler)
+               (event-data->response handler-fn)
                (send-invocation-response lambda-api-endpoint req-id))
           (catch Exception e
             (println "Error handling event:" e)

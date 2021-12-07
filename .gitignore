@@ -3,3 +3,5 @@
 .*/
 .DS_Store
 ._*
+.nrepl-port
+Session.vim

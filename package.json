@@ -1,6 +1,6 @@
 {
   "name": "vercel-babashka",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Babashka runtime for Vercel Serverless Functions",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
