@@ -28,12 +28,6 @@ if type -p bb &> /dev/null && check_version bb; then
 	exit 0
 fi
 
-type -p curl &> /dev/null || {
-	. "$SCRIPT_DIR"/import.sh
-	import "static-binaries@1.0.0"
-	static_binaries curl
-}
-
 bash <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install) \
 	${BABASHKA_INSTALL_VERSION:+--version "$BABASHKA_INSTALL_VERSION"} \
 	--download-dir "$target_dir" \
