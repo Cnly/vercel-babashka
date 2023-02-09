@@ -2,7 +2,7 @@
   "public": true,
   "functions": {
     "api/**/*.clj": {
-      "runtime": "vercel-dev-runtime@0.0.3",
+      "runtime": "vercel-dev-builder@0.0.5",
       "memory": 512
     }
   },
